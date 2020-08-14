@@ -1,96 +1,96 @@
 package com.lopes.clinic.model.repository;
 
+import com.lopes.clinic.model.Patient;
+import com.lopes.clinic.util.ClinicUtils;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
-
-import com.lopes.clinic.model.Patient;
-import com.lopes.clinic.util.ClinicUtills;
-
-// TODO: Auto-generated Javadoc
 /**
- * The Class PatientRepository.
+ * The type Patient repository.
  */
 @Service
 public class PatientRepository {
 
-	/**
-	 * Instantiates a new patient repository.
-	 */
-	public PatientRepository() {
-		getPatients();
-	}
+    /**
+     * Instantiates a new Patient repository.
+     */
+    public PatientRepository() {
+        getPatients();
+    }
 
-	/** The patients. */
-	private List<Patient> patients;
+    /**
+     * The Patients.
+     */
+    private List<Patient> patients;
 
-	/**
-	 * Gets the patients.
-	 *
-	 * @return the patients
-	 */
-	public List<Patient> getPatients() {
-		if (patients == null) {
-			patients = ClinicUtills.cretesPatientList();
-		}
-		return patients;
-	}
+    /**
+     * Gets patients.
+     *
+     * @return the patients
+     */
+    public List<Patient> getPatients() {
+        if (patients == null) {
+            patients = ClinicUtils.createsPatientList();
+        }
+        return patients;
+    }
 
-	/**
-	 * Find by id.
-	 *
-	 * @param id the id
-	 * @return the optional
-	 */
-	public Optional<Patient> findById(Long id) {
-		return Optional.ofNullable(getPatients().stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null));
-	}
+    /**
+     * Find by id optional.
+     *
+     * @param id the id
+     * @return the optional
+     */
+    public Optional<Patient> findById(Long id) {
+        return Optional.ofNullable(getPatients().stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null));
+    }
 
-	/**
-	 * Delete.
-	 *
-	 * @param id the id
-	 * @return the boolean
-	 */
-	public Boolean delete(Long id) {
+    /**
+     * Delete boolean.
+     *
+     * @param id the id
+     * @return the boolean
+     */
+    public Boolean delete(Long id) {
 
-		for (Patient p : getPatients()) {
-			if (p.getId().equals(id)) {
-				return getPatients().remove(p);
-			}
-		}
-		return false;
-	}
+        for (Patient p : getPatients()) {
+            if (p.getId().equals(id)) {
+                return getPatients().remove(p);
+            }
+        }
+        return false;
+    }
 
-	/**
-	 * Insert.
-	 *
-	 * @param patient the patient
-	 * @return the patient
-	 */
-	public Patient insert(Patient patient) {
-		patient.setId(ClinicUtills.generatedPatientId());
-		getPatients().add(patient);
-		return patient;
-	}
+    /**
+     * Insert patient.
+     *
+     * @param patient the patient
+     * @return the patient
+     */
+    public Patient insert(Patient patient) {
+        patient.setId(ClinicUtils.generatedPatientId());
+        getPatients().add(patient);
+        return patient;
+    }
 
-	/**
-	 * Update.
-	 *
-	 * @param patient the patient
-	 * @return the patient
-	 */
-	public Patient update(Patient patient) {
-		for (Patient p : getPatients()) {
-			if (p.equals(patient)) {
-				p.setFirstName(patient.getFirstName());
-				p.setLastName(patient.getLastName());
-				p.setAge(patient.getAge());
-				patient = p;
-			}
-		}
-		return patient;
-	}
+    /**
+     * Update patient.
+     *
+     * @param patient the patient
+     * @return the patient
+     */
+    public Patient update(Patient patient) {
+        for (Patient p : getPatients()) {
+            if (p.equals(patient)) {
+                p.setFirstName(patient.getFirstName());
+                p.setLastName(patient.getLastName());
+                p.setAge(patient.getAge());
+                patient = p;
+            }
+        }
+        return patient;
+    }
 
 }
